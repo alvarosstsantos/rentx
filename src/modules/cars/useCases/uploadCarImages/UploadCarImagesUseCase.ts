@@ -22,6 +22,7 @@ class UploadCarImagesUseCase {
     if (carImages) {
       carImages.map(async (carImage: CarImage) => {
         await deleteFile(`./tmp/cars/${carImage.image_name}`);
+        await this.carsImagesRepository.delete(carImage.image_name);
       });
     }
 
