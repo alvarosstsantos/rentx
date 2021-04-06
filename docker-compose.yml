@@ -11,15 +11,18 @@ services:
       - POSTGRES_DB=rentx
     volumes:
       - pgdata:/data/postgres
-    network_mode: host
     command: -p 5433
+    ports:
+      - 5433:5433
   app:
     build: .
     container_name: rentx
     volumes:
       - .:/usr/app
-    network_mode: host
-
+    links:
+      - database_ignite
+    depends_on:
+      - database_ignite
 
 volumes:
   pgdata:
