@@ -4,6 +4,7 @@ import "dotenv/config";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
+import rateLimiter from "shared/infra/http/middlewares/rateLimiter";
 import swaggerUi from "swagger-ui-express";
 
 import upload from "@config/upload";
@@ -19,6 +20,8 @@ createConnection();
 
 const app = express();
 app.use(express.json());
+
+app.use(rateLimiter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
